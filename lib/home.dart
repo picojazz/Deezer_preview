@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:picojazz_deezer_preview/listSongs.dart';
 import 'package:picojazz_deezer_preview/models/Album.dart';
 import 'package:picojazz_deezer_preview/models/Track.dart';
+import 'package:picojazz_deezer_preview/player.dart';
 import 'package:picojazz_deezer_preview/services/deezer.dart';
+import 'package:picojazz_deezer_preview/widget/songCard.dart';
 
 
 
@@ -22,7 +25,7 @@ class _HomeState extends State<Home> {
    //print(result);
    for (var track in result) {
      widget.tracks.add(track);
-     print(widget.tracks.toString());
+     //print(widget.tracks.toString());
    }
   
   }
@@ -64,17 +67,17 @@ class _HomeState extends State<Home> {
               color: Colors.grey
             ),),
             SizedBox(height: 15.0,),
-            Expanded(
-
+            SizedBox(
+              height: 150.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.albums.length,
                 itemBuilder: (BuildContext context , int i){
-                  return albumCard(widget.albums[i]);
+                  return albumCard(widget.albums[i],context);
                 },
               ),
             ),
-            //SizedBox(height: 15.0,),
+            SizedBox(height: 15.0,),
             Text("Les songs du moment ",style: TextStyle(
               fontFamily: "shadow",
               fontSize: 20.0,
@@ -85,7 +88,7 @@ class _HomeState extends State<Home> {
               child: ListView.builder(
                 itemCount: widget.tracks.length,
                 itemBuilder: (BuildContext context,int i){
-                  return songCard(widget.tracks[i]);
+                  return SongCart(widget.tracks[i],context);
                 },
               ),
             )
@@ -97,34 +100,66 @@ class _HomeState extends State<Home> {
 }
 
 
-Widget albumCard(album){
+Widget albumCard(album,context){
   return Padding(
     padding: EdgeInsets.all(5.0),
-    child: Container(
-      
-      decoration: BoxDecoration(
-        //color: Colors.blue,
-        borderRadius: BorderRadius.circular(10.0)
+    child: GestureDetector(
+      onTap: (){
+        Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListSongs(album)));
+      },
+          child: Container(
+       
+        decoration: BoxDecoration(
+          //color: Colors.blue,
+          borderRadius: BorderRadius.circular(10.0)
+        ),
+        child: Stack(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(album.image,fit: BoxFit.fill,))
+          ],
+        )
       ),
-      child: Stack(
-        children: <Widget>[
-          ClipRRect(
+    ),
+  );
+}
+/*
+Widget songCard(track,context){
+  return Container(
+    
+      child: Card(
+      color: Colors.grey[850],
+      elevation: 10.0,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: ListTile(
+          trailing: GestureDetector(
+            onTap: (){
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AudioApp(track)));
+            },
+            child: Icon(Icons.play_arrow,color: Colors.white,),
+          ),
+          title: Text(track.title,style: TextStyle(
+            color: Colors.grey[200],
+            fontSize: 12.0
+          ),),
+          leading: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(album.image,fit: BoxFit.fill,))
-        ],
-      )
+            child: Image.network(track.image)),
+            subtitle: Text(track.artist,style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.grey
+            ),),
+        ),
+      ),
     ),
   );
 }
-
-Widget songCard(track){
-  return Card(
-    elevation: 10.0,
-    child: ListTile(
-      title: Text(track.title,style: TextStyle(
-        color: Colors.grey
-      ),),
-      leading: Image.network(track.image),
-    ),
-  );
-}
+*/
