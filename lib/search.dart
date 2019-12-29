@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:picojazz_deezer_preview/searchView.dart';
 
-class Search extends SearchDelegate<String>{
+class Search extends SearchDelegate<String> {
+  List<String> recentSearch = ['sfdsfsd', 'zaeazeaze', 'lplplplp'];
 
-  List<String> recentSearch = ['sfdsfsd','zaeazeaze','lplplplp'];
+  
+  
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -10,10 +13,10 @@ class Search extends SearchDelegate<String>{
     return [
       IconButton(
         icon: Icon(Icons.clear),
-        onPressed: (){
+        onPressed: () {
           close(context, null);
         },
-        )
+      )
     ];
   }
 
@@ -21,33 +24,32 @@ class Search extends SearchDelegate<String>{
   Widget buildLeading(BuildContext context) {
     // TODO: implement buildLeading
     return IconButton(
-      icon: AnimatedIcon(
+          icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
       onPressed: (){},
-      
-      );
-    
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
+    
     print(query);
-    return Center(
-        child:Text(query)
-    );
+    return SearchView();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final recent = query.isEmpty ? recentSearch : recentSearch.where((p) => p.startsWith(query)).toList();
+    final recent = query.isEmpty
+        ? recentSearch
+        : recentSearch.where((p) => p.startsWith(query)).toList();
     return ListView.builder(
       itemCount: recent.length,
-      itemBuilder: (context,i){
+      itemBuilder: (context, i) {
         return ListTile(
-          onTap: (){
+          onTap: () {
             query = recent[i];
             showResults(context);
           },
@@ -57,5 +59,5 @@ class Search extends SearchDelegate<String>{
       },
     );
   }
-  
 }
+

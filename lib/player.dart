@@ -6,19 +6,16 @@ import 'package:picojazz_deezer_preview/models/Track.dart';
 
 typedef void OnError(Exception exception);
 
-
-
 enum PlayerState { stopped, playing, paused }
 
 class AudioApp extends StatefulWidget {
-  Track track ;
+  Track track;
   AudioApp(this.track);
   @override
   _AudioAppState createState() => new _AudioAppState();
 }
 
 class _AudioAppState extends State<AudioApp> {
-  
   Duration duration;
   Duration position;
 
@@ -91,7 +88,7 @@ class _AudioAppState extends State<AudioApp> {
       });
   }
 
- /* Future _playLocal() async {
+  /* Future _playLocal() async {
     final result = await audioPlayer.play(localFilePath, isLocal: true);
     if (result == 1) setState(() => playerState = PlayerState.playing);
   }*/
@@ -141,13 +138,12 @@ class _AudioAppState extends State<AudioApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black87,
-          ),
-          body: SafeArea(
-            child: new Center(
+      appBar: AppBar(
+        backgroundColor: Colors.black87,
+      ),
+      body: SafeArea(
+        child: new Center(
             child: new Container(
-
                 color: Colors.black,
                 child: new Center(
                   child: new Column(
@@ -155,28 +151,37 @@ class _AudioAppState extends State<AudioApp> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          
-                          width: MediaQuery.of(context).size.width/1.5,
-                          height: MediaQuery.of(context).size.height/3,
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          height: MediaQuery.of(context).size.height / 3,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.network(widget.track.image,fit: BoxFit.fill,)),
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.network(
+                                widget.track.image,
+                                fit: BoxFit.fill,
+                              )),
                         ),
-                        SizedBox(height: 15.0,),
-                        Text(widget.track.title,style: TextStyle(
-                          fontFamily: "shadow",
-                          fontSize: 35.0,
-                          color: Colors.white
-                        ),),
-                        SizedBox(height: 10.0,),
-                        Text(widget.track.artist,style: TextStyle(
-                          fontFamily: "Gupter",
-                          fontSize: 15.0,
-                          color: Colors.white
-                        ),),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Text(
+                          widget.track.title,
+                          style: TextStyle(
+                              fontFamily: "shadow",
+                              fontSize: 35.0,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(
+                          widget.track.artist,
+                          style: TextStyle(
+                              fontFamily: "Gupter",
+                              fontSize: 15.0,
+                              color: Colors.white),
+                        ),
                         SizedBox(height: 25.0),
                         Material(child: _buildPlayer())
-                       
                       ]),
                 ))),
       ),
@@ -207,7 +212,7 @@ class _AudioAppState extends State<AudioApp> {
         duration == null
             ? new Container()
             : new Slider(
-              activeColor: Colors.orange[300],
+                activeColor: Colors.orange[300],
                 value: position?.inMilliseconds?.toDouble() ?? 0,
                 onChanged: (double value) =>
                     audioPlayer.seek((value / 1000).roundToDouble()),
@@ -227,15 +232,11 @@ class _AudioAppState extends State<AudioApp> {
           ],
         ),
         new Row(mainAxisSize: MainAxisSize.min, children: [
-          
           new Text(
               position != null
                   ? "${positionText ?? ''} / ${durationText ?? ''}"
                   : duration != null ? durationText : '',
-              style: new TextStyle(fontSize: 18.0,color: Colors.white))
+              style: new TextStyle(fontSize: 18.0, color: Colors.white))
         ])
       ]));
 }
-
-
-
