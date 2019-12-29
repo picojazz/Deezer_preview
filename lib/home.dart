@@ -3,6 +3,7 @@ import 'package:picojazz_deezer_preview/listSongs.dart';
 import 'package:picojazz_deezer_preview/models/Album.dart';
 import 'package:picojazz_deezer_preview/models/Track.dart';
 import 'package:picojazz_deezer_preview/player.dart';
+import 'package:picojazz_deezer_preview/search.dart';
 import 'package:picojazz_deezer_preview/services/deezer.dart';
 import 'package:picojazz_deezer_preview/widget/songCard.dart';
 
@@ -54,13 +55,28 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text("Picojazz Deezer preview ",style:TextStyle(
+          color: Colors.grey,
+          fontFamily: "shadow",
+          fontSize: 25.0,
+          )),
+        backgroundColor: Colors.black,
+        actions: <Widget>[
+          IconButton(
+            onPressed: (){
+              showSearch(context: context,delegate: Search());
+            },
+            icon: Icon(Icons.search,color: Colors.grey,),
+          )
+        ],
+      ),
+      //drawer: Drawer(),
       body: SafeArea(
         child: Column(
           
           children: <Widget>[
-            TextField(
-              
-            ),
+            SizedBox(height: 15.0,),
             Text("Les meilleurs albums du moment ",style: TextStyle(
               fontFamily: "shadow",
               fontSize: 20.0,
