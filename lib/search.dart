@@ -4,9 +4,6 @@ import 'package:picojazz_deezer_preview/searchView.dart';
 class Search extends SearchDelegate<String> {
   List<String> recentSearch = ['sfdsfsd', 'zaeazeaze', 'lplplplp'];
 
-  
-  
-
   @override
   List<Widget> buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -24,20 +21,20 @@ class Search extends SearchDelegate<String> {
   Widget buildLeading(BuildContext context) {
     // TODO: implement buildLeading
     return IconButton(
-          icon: AnimatedIcon(
+      icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
-      onPressed: (){},
+      onPressed: () {},
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    
+
     print(query);
-    return SearchView();
+    return SearchView(query);
   }
 
   @override
@@ -60,4 +57,3 @@ class Search extends SearchDelegate<String> {
     );
   }
 }
-

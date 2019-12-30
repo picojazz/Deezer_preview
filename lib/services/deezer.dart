@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:picojazz_deezer_preview/models/Album.dart';
+import 'package:picojazz_deezer_preview/models/Artist.dart';
 import 'package:picojazz_deezer_preview/models/Track.dart';
 
 class Deezer {
@@ -64,4 +65,51 @@ class Deezer {
       print(e.toString());
     }
   }
+
+
+  Future search(query) async {
+
+      try {
+
+      final response = await http.get(api+"search?q="+query);
+      final jsonReponse = json.decode(response.body);
+      final donneeJson = jsonReponse['data'];
+      //print(donneeJson.toString());
+
+      List<Track> tracks = new List();
+      
+      for (var track in donneeJson) {
+        
+          tracks.add(Track(track['artist']['name'], track['title'],
+            track['preview'], track['artist']['picture_big']));
+        
+      }
+      
+
+      List<Album> albums = new List();
+     
+      for (var album in donneeJson) {
+  
+                  albums.add(Album(album['album']['title'], album['album']['cover_big'],
+              album['artist']['name'], album['album']['tracklist']));
+       
+        
+      }
+
+      
+
+      List<Artist> artists = new List();
+      artists.add(Artist(donneeJson[0]['artist']['name'],donneeJson[0]['artist']['picture_big'],donneeJson[0]['artist']['tracklist']));
+        
+
+      return [tracks,albums,artists];
+
+      } catch (e) {
+        print(e.toString());
+      }
+
+  }
+
+
+
 }
