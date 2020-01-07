@@ -125,16 +125,6 @@ class _AudioAppState extends State<AudioApp> {
     audioPlayer.stop();
   }
 
-//  Future<Uint8List> _loadFileBytes(String url, {OnError onError}) async {
-//    Uint8List bytes;
-//    try {
-//      bytes = await readBytes(url);
-//    } on ClientException {
-//      rethrow;
-//    }
-//    return bytes;
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

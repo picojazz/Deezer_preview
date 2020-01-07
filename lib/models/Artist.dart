@@ -1,9 +1,8 @@
 class Artist {
   String title = '';
-  String artist ;
+  String artist;
   String image;
   String listTrack;
 
-  Artist(this.artist,this.image,this.listTrack);
-
+  Artist(this.artist, this.image, this.listTrack);
 }

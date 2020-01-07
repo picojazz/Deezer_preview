@@ -66,50 +66,39 @@ class Deezer {
     }
   }
 
-
   Future search(query) async {
-
-      try {
-
-      final response = await http.get(api+"search?q="+query);
+    try {
+      final response = await http.get(api + "search?q=" + query);
       final jsonReponse = json.decode(response.body);
       final donneeJson = jsonReponse['data'];
       //print(donneeJson.toString());
 
       List<Track> tracks = new List();
-      
+
       for (var track in donneeJson) {
-        
-          tracks.add(Track(track['artist']['name'], track['title'],
+        tracks.add(Track(track['artist']['name'], track['title'],
             track['preview'], track['artist']['picture_big']));
-        
       }
-      
 
       List<Album> albums = new List();
-     
+
+      bool existalbum = false;
       for (var album in donneeJson) {
-  
-                  albums.add(Album(album['album']['title'], album['album']['cover_big'],
+        existalbum = false;
+        for (var albumTest in albums) {
+          if (album['album']['title'].trim() == albumTest.title.trim()) {
+            existalbum = true;
+          }
+        }
+        if (!existalbum) {
+          albums.add(Album(album['album']['title'], album['album']['cover_big'],
               album['artist']['name'], album['album']['tracklist']));
-       
-        
+        }
       }
 
-      
-
-      List<Artist> artists = new List();
-      artists.add(Artist(donneeJson[0]['artist']['name'],donneeJson[0]['artist']['picture_big'],donneeJson[0]['artist']['tracklist']));
-        
-
-      return [tracks,albums,artists];
-
-      } catch (e) {
-        print(e.toString());
-      }
-
+      return [tracks, albums];
+    } catch (e) {
+      print(e.toString());
+    }
   }
-
-
-
 }
