@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
             style: TextStyle(
               color: Colors.grey,
               fontFamily: "shadow",
-              fontSize: 25.0,
+              fontSize: 18.0,
             )),
         backgroundColor: Colors.black,
         actions: <Widget>[
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
           Text(
             "Les meilleurs albums du moment ",
             style: TextStyle(
-                fontFamily: "shadow", fontSize: 20.0, color: Colors.grey),
+                fontFamily: "shadow", fontSize: 18.0, color: Colors.grey),
           ),
           SizedBox(
             height: 15.0,
@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
           Text(
             "Les songs du moment ",
             style: TextStyle(
-                fontFamily: "shadow", fontSize: 20.0, color: Colors.grey),
+                fontFamily: "shadow", fontSize: 18.0, color: Colors.grey),
           ),
           SizedBox(
             height: 15.0,

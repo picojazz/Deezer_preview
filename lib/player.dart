@@ -157,7 +157,7 @@ class _AudioAppState extends State<AudioApp> {
                           widget.track.title,
                           style: TextStyle(
                               fontFamily: "shadow",
-                              fontSize: 35.0,
+                              fontSize: 20.0,
                               color: Colors.white),
                         ),
                         SizedBox(

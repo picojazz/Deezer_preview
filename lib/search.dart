@@ -8,7 +8,9 @@ class Search extends SearchDelegate<String> {
   List<MySearch> listSearch;
 
   getAllSearch() async {
+    //recentSearch.clear();
     listSearch = await db.getAllSearch();
+    
     for (var item in listSearch) {
       recentSearch.add(item.search);
     }
@@ -16,6 +18,10 @@ class Search extends SearchDelegate<String> {
 
   insert(search) async {
     await db.insert(search);
+  }
+
+  Search(){
+    getAllSearch();
   }
 
   @override
@@ -26,7 +32,8 @@ class Search extends SearchDelegate<String> {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
-          close(context, null);
+          recentSearch.clear();
+         close(context, null);
         },
       )
     ];
@@ -40,7 +47,9 @@ class Search extends SearchDelegate<String> {
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
-      onPressed: () {},
+      onPressed: () {
+          close(context, null);
+      },
     );
   }
 
@@ -56,11 +65,13 @@ class Search extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    getAllSearch();
+    
+    //getAllSearch();
 
     final recent = query.isEmpty
         ? recentSearch
         : recentSearch.where((p) => p.startsWith(query)).toList();
+      //final recent = recentSearch;   
 
     return ListView.builder(
       itemCount: recent.length,

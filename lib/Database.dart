@@ -46,7 +46,7 @@ class MyDatabase {
   void _onCreate(Database db, int version) {
     db.execute('''
     CREATE TABLE mysearch(
-      search TEXT)
+      search TEXT primary key)
   ''');
     print("Database was created!");
   }
